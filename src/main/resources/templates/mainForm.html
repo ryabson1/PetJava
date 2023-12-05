@@ -2,9 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Главная страница</title>
+  <title>Главная</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <!-- Подключение Bootstrap -->
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+  <!-- Подключение кастомной темы -->
+  <link rel="stylesheet" th:href="@{/css/custom-theme.css}"/>
 </head>
 <body>
-
+<div class="container">
+  <p><a class="registration-link" th:href="@{/login}">Вернуться на страницу Логина</a></p>
+</div>
 </body>
 </html>
