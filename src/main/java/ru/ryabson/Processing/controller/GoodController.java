@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.ryabson.Processing.dto.GoodCreateRequestDto;
+import ru.ryabson.Processing.dto.GoodListResponseDto;
 import ru.ryabson.Processing.entity.GoodType;
 import ru.ryabson.Processing.service.GoodService;
 import ru.ryabson.Processing.service.GoodTypeService;
@@ -34,6 +36,19 @@ public class GoodController {
             @ModelAttribute("createRequest") GoodCreateRequestDto createRequestDto) {
         goodService.createNewGood(createRequestDto);
         return "redirect:/goods/create?success";
+    }
+
+    @GetMapping("/all")
+    public String getAllGoods(Model model) {
+        List<GoodListResponseDto> goodList = goodService.getAllGoods();
+        model.addAttribute("goods", goodList);
+        return "allGoods";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteGood(@PathVariable Long id) {
+        goodService.deleteGood(id);
+        return "redirect:/goods/all";
     }
 
 

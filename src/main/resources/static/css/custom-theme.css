@@ -9,7 +9,7 @@ body {
 }
 
 .container {
-    max-width: 400px;
+    max-width: 500px;
     margin-top: 50px;
     background-color: #fff; /* Фон контейнера */
     padding: 20px;

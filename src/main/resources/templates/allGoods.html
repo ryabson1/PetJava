@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Что купить</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+  <!-- Подключение кастомной темы -->
+  <link rel="stylesheet" th:href="@{/css/custom-theme.css}"/>
+  <style>
+    .table th.text-center {
+        width: 33.33%;
+    }
+    .table td.text-center.no-wrap {
+        white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="text-center">
+<h4>Список товаров</h4>
+    </div>
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th class="text-center">Товар</th>
+    <th class="text-center">Категория</th>
+    <th class="text-center">Удалить</th>
+    <th class="text-center">Купить</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Iterate through the list of goods -->
+  <tr th:each="good : ${goods}">
+    <td class="text-center" th:text="${good.goodName}"></td>
+    <td class="text-center" th:text="${good.goodTypeName}"></td>
+    <td class="text-center">
+      <a th:href="@{/goods/delete/{id}(id=${good.goodId})}" class="btn btn-primary">Удалить</a>
+    </td>
+    <td class="text-center">
+      <a th:href="@{/goods/delete/{id}(id=${good.goodId})}" class="btn btn-primary">Купить</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div class="container">
+  <p><a class="registration-link" th:href="@{/mainForm}">Вернуться назад</a></p>
+  <p><a class="registration-link" th:href="@{/login}">Выйти из приложения</a></p>
+</div>
+</div>
+</body>
+</html>
