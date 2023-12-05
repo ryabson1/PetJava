@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+  <!-- Подключение кастомной темы -->
+  <link rel="stylesheet" th:href="@{/css/custom-theme.css}"/>
+  <title>Добавить товар</title>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h3>Добавить</h3>
+  </div>
+
+  <form action="/goods/create" method="post" th:object="${createRequest}">
+    <div class="form-group">
+      <label for="goodName">Что купить?</label>
+      <input type="text" class="form-control" id="goodName" name="goodName"
+             placeholder="Введи название сюда" required>
+    </div>
+
+    <div class="form-group">
+      <label for="goodTypeName">Категория</label>
+      <select class="form-control" id="goodTypeName" name="goodTypeName" required>
+        <option value="" selected disabled hidden>Выбери категорию</option>
+        <option th:each="goodType : ${goodTypes}" th:value="${goodType.goodTypeName}"
+                th:text="${goodType.goodTypeName}"></option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Добавить</button>
+  </form>
+
+  <div th:if="${param.success}" class="mt-3 alert alert-success">Товар успешно добавлен</div>
+
+  <div class="container">
+    <p><a class="registration-link" th:href="@{/mainForm}">Вернуть назад</a></p>
+    <p><a class="registration-link" th:href="@{/login}">Выйти из приложения</a></p>
+  </div>
+
+</div>
+</body>
+</html>

@@ -41,10 +41,7 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/mainForm")
-    public String mainForm() {
-        return "mainForm";
-    }
+
 
     @GetMapping("/registration")
     public String showRegistrationForm(Model model) {
