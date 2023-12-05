@@ -1,0 +1,34 @@
+/* Определение переменных для кастомной темы */
+:root {
+    --primary-color: #3498db; /* Основной цвет (замените на ваш выбор) */
+    --background-color: #ecf0f1; /* Фоновый цвет (замените на ваш выбор) */
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+.container {
+    max-width: 400px;
+    margin-top: 50px;
+    background-color: #fff; /* Фон контейнера */
+    padding: 20px;
+    border-radius: 5px; /* Закругление углов контейнера */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень контейнера */
+}
+
+.form-group {
+    margin-bottom: 1.5em;
+}
+
+/* Кастомизация цвета кнопки */
+.btn-custom {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.registration-link {
+    display: block;
+    margin-top: 1em;
+    text-align: center;
+}

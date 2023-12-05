@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Регистрация</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <!-- Подключение Bootstrap -->
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+  <!-- Подключение кастомной темы -->
+  <link rel="stylesheet" th:href="@{/css/custom-theme.css}"/>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <h2>Регистрация</h2>
+  </div>
+
+  <div th:if="${error}">
+    <p style="color: red;">"Этот логин уже занят. Придумайте другой"</p>
+  </div>
+  <div class="form-container">
+    <form action="/registration" method="post" th:object="${user}">
+
+      <label for="userName">Логин:</label>
+      <input type="text" id="userName" name="userName" class="form-control" required>
+      <br>
+
+      <label for="userEmail">Адрес электронной почты:</label>
+      <input type="text" id="userEmail" name="userEmail" class="form-control" required>
+      <br>
+
+      <label for="userPwd">Пароль:</label>
+      <input type="text" id="userPwd" name="userPassword" class="form-control" required>
+      <br>
+
+      <button type="submit" class="btn btn-custom">Зарегистрироваться</button>
+
+    </form>
+  </div>
+  <p><a class="registration-link" th:href="@{/login}">Вернуться на страницу Логина</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.header {
+    padding: 1em;
+    text-align: center;
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 2em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 2em;
+}
+
+/* Стили для формы ввода */
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px; /* Ограничиваем максимальную ширину формы */
+    margin: 0 auto; /* Центрируем форму по горизонтали*/
+}
+
+.form-container label {
+    margin-bottom: 0.5em;
+}
+
+.form-container input {
+    padding: 0.5em;
+    margin-bottom: 1em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-container button {
+    padding: 0.5em;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.registration-link {
+    display: block;
+    margin-top: 1em;
+}
