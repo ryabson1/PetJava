@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.ryabson.Processing.dto.FilteredRequestDto;
@@ -105,6 +106,18 @@ public class GoodService {
         } else {
             return getAllActiveGoods();
         }
+    }
+
+    private List<GoodListResponseDto> convertToDto(List<Good> goods) {
+        return goods.stream()
+                .map(good -> {
+                    GoodListResponseDto responseDto = new GoodListResponseDto();
+                    responseDto.setGoodId(good.getId());
+                    responseDto.setGoodName(good.getGoodName());
+                    responseDto.setGoodTypeName(good.getGoodType().getGoodTypeName());
+                    return responseDto;
+                })
+                .collect(Collectors.toList());
     }
 
 }

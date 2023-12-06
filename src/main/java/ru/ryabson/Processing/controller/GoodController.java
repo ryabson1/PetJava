@@ -75,23 +75,27 @@ public class GoodController {
 
     @GetMapping("/filter")
     public String showFilteredGoods(Model model) {
-      //  List<GoodType> goodTypes = goodTypeService.getAllGoodTypes();
-        List<GoodListResponseDto> goodTypes = goodService.getAllActiveGoods();
+
+        List<GoodType> goodTypes = goodTypeService.getAllGoodTypes();
         model.addAttribute("goodTypes", goodTypes);
         model.addAttribute("filterRequest",
                 new FilteredRequestDto()); // DTO для передачи данных формы
         model.addAttribute("filteredGoods",
-                goodService.getAllGoods()); // Изначально отображаем все товары
+                goodService.getAllGoods());
         return "filterGoods";
     }
 
     @PostMapping("/filter")
     public String filterGoods(@ModelAttribute("filterRequest") FilteredRequestDto filterRequest,
             Model model) {
-        List<GoodListResponseDto> filteredGoods = goodService.getFilteredGoods(filterRequest);
-        model.addAttribute("filteredGoods", filteredGoods);
-        model.addAttribute("goodTypes",
-                goodTypeService.getAllGoodTypes()); // Передаем снова все категории для формы
+        if (!filterRequest.getTypeName().equals("Еда") && !filterRequest.getTypeName().equals("Бытовая химия")) {
+            model.addAttribute("filteredGoods",goodService.getAllGoods());
+        }
+        else {
+            List<GoodListResponseDto> filteredGoods = goodService.getFilteredGoods(filterRequest);
+            model.addAttribute("filteredGoods", filteredGoods);
+        }
+        model.addAttribute("goodTypes", goodTypeService.getAllGoodTypes());
         return "filterGoods";
     }
 
