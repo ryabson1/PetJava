@@ -1,5 +1,6 @@
 package ru.ryabson.Processing.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,8 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.ryabson.Processing.dto.GoodCreateRequestDto;
 import ru.ryabson.Processing.dto.GoodListResponseDto;
+import ru.ryabson.Processing.entity.Good;
 import ru.ryabson.Processing.entity.GoodType;
 import ru.ryabson.Processing.service.GoodService;
 import ru.ryabson.Processing.service.GoodTypeService;
@@ -40,7 +43,8 @@ public class GoodController {
 
     @GetMapping("/all")
     public String getAllGoods(Model model) {
-        List<GoodListResponseDto> goodList = goodService.getAllGoods();
+        //  List<GoodListResponseDto> goodList = goodService.getAllGoods();
+        List<GoodListResponseDto> goodList = goodService.getAllActiveGoods();
         model.addAttribute("goods", goodList);
         return "allGoods";
     }
@@ -48,6 +52,23 @@ public class GoodController {
     @GetMapping("/delete/{id}")
     public String deleteGood(@PathVariable Long id) {
         goodService.deleteGood(id);
+        return "redirect:/goods/all";
+    }
+
+    @GetMapping("/buy/{id}")
+    public String showBuyForm(@PathVariable Long id, Model model) {
+        // Передайте необходимые данные для отображения на форме, например, имя товара
+        Good good = goodService.getGoodById(id);
+        model.addAttribute("goodName", good.getGoodName());
+        model.addAttribute("goodId", id);
+        return "buyForm";
+    }
+
+    @PostMapping("/buy")
+    public String buyGood(
+            @RequestParam Long goodId,
+            @RequestParam BigDecimal goodPrice) {
+        goodService.bouGood(goodId, goodPrice);
         return "redirect:/goods/all";
     }
 

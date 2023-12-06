@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Покупка</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+  <!-- Подключение кастомной темы -->
+  <link rel="stylesheet" th:href="@{/css/custom-theme.css}"/>
+</head>
+<body>
+<div class="container">
+  <form th:action="@{/goods/buy}" method="post">
+    <input type="hidden" name="goodId" th:value="${goodId}" />
+    <label for="goodPrice">Цена товара:</label>
+    <input type="text" id="goodPrice" name="goodPrice" required>
+    <button type="submit" class="btn btn-primary">Купить</button>
+  </form>
+  <div class="container">
+    <p><a class="registration-link" th:href="@{/mainForm}">Вернуться назад</a></p>
+    <p><a class="registration-link" th:href="@{/login}">Выйти из приложения</a></p>
+  </div>
+</div>
+</body>
+</html>
