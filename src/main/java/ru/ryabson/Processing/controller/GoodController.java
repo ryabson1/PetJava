@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.ryabson.Processing.dto.FilteredRequestDto;
 import ru.ryabson.Processing.dto.GoodCreateRequestDto;
 import ru.ryabson.Processing.dto.GoodListResponseDto;
 import ru.ryabson.Processing.entity.Good;
@@ -70,6 +71,28 @@ public class GoodController {
             @RequestParam BigDecimal goodPrice) {
         goodService.bouGood(goodId, goodPrice);
         return "redirect:/goods/all";
+    }
+
+    @GetMapping("/filter")
+    public String showFilteredGoods(Model model) {
+      //  List<GoodType> goodTypes = goodTypeService.getAllGoodTypes();
+        List<GoodListResponseDto> goodTypes = goodService.getAllActiveGoods();
+        model.addAttribute("goodTypes", goodTypes);
+        model.addAttribute("filterRequest",
+                new FilteredRequestDto()); // DTO для передачи данных формы
+        model.addAttribute("filteredGoods",
+                goodService.getAllGoods()); // Изначально отображаем все товары
+        return "filterGoods";
+    }
+
+    @PostMapping("/filter")
+    public String filterGoods(@ModelAttribute("filterRequest") FilteredRequestDto filterRequest,
+            Model model) {
+        List<GoodListResponseDto> filteredGoods = goodService.getFilteredGoods(filterRequest);
+        model.addAttribute("filteredGoods", filteredGoods);
+        model.addAttribute("goodTypes",
+                goodTypeService.getAllGoodTypes()); // Передаем снова все категории для формы
+        return "filterGoods";
     }
 
 

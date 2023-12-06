@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.ryabson.Processing.dto.FilteredRequestDto;
 import ru.ryabson.Processing.dto.GoodCreateRequestDto;
 import ru.ryabson.Processing.dto.GoodListResponseDto;
 import ru.ryabson.Processing.entity.Good;
@@ -64,6 +65,46 @@ public class GoodService {
         good.setGoodPrice(goodPrice);
         good.setGoodActive(true);
         goodRepository.save(good);
+    }
+
+    public List<GoodListResponseDto> getFilteredGoods(FilteredRequestDto filterRequest) {
+        if (filterRequest.getTypeName() != null
+                && filterRequest.getMinPrice() != null
+                && filterRequest.getMaxPrice() != null) {
+            List <GoodListResponseDto> resultList = new ArrayList<>();
+            for (Good good : goodRepository.findByGoodTypeAndGoodPriceBetween(goodTypeRepository.findGoodTypeByGoodTypeName(filterRequest.getTypeName()),
+                    filterRequest.getMinPrice(),
+                    filterRequest.getMaxPrice())) {
+                GoodListResponseDto responseDto = new GoodListResponseDto();
+                responseDto.setGoodId(good.getId());
+                responseDto.setGoodName(good.getGoodName());
+                responseDto.setGoodTypeName(good.getGoodType().getGoodTypeName());
+                resultList.add(responseDto);
+            }
+            return resultList;
+        } else if (filterRequest.getTypeName() != null) {
+            List <GoodListResponseDto> resultList = new ArrayList<>();
+            for (Good good: goodRepository.findByGoodType(goodTypeRepository.findGoodTypeByGoodTypeName(filterRequest.getTypeName()))) {
+                GoodListResponseDto responseDto = new GoodListResponseDto();
+                responseDto.setGoodId(good.getId());
+                responseDto.setGoodName(good.getGoodName());
+                responseDto.setGoodTypeName(good.getGoodType().getGoodTypeName());
+                resultList.add(responseDto);
+            }
+            return resultList;
+        } else if (filterRequest.getMinPrice() != null && filterRequest.getMaxPrice() != null) {
+            List <GoodListResponseDto> resultList = new ArrayList<>();
+            for (Good good: goodRepository.findByGoodPriceBetween(filterRequest.getMinPrice(),filterRequest.getMaxPrice())) {
+                GoodListResponseDto responseDto = new GoodListResponseDto();
+                responseDto.setGoodId(good.getId());
+                responseDto.setGoodName(good.getGoodName());
+                responseDto.setGoodTypeName(good.getGoodType().getGoodTypeName());
+                resultList.add(responseDto);
+            }
+            return resultList;
+        } else {
+            return getAllActiveGoods();
+        }
     }
 
 }

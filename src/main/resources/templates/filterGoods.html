@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- ... Ваши стили и мета-теги ... -->
+</head>
+<body>
+<div class="container">
+  <form th:action="@{/goods/filter}" method="post" th:object="${filterRequest}">
+    <!-- Выбор категории -->
+    <label for="typeName">Категория:</label>
+    <select id="typeName" name="typeName" th:field="*{typeName}">
+      <option value="" selected>Все категории</option>
+      <option th:each="type : ${goodTypes}" th:value="${type.goodTypeName}" th:text="${type.goodTypeName}"></option>
+    </select>
+
+    <!-- Ввод минимальной цены -->
+    <label for="minPrice">Минимальная цена:</label>
+    <input type="text" id="minPrice" name="minPrice" th:field="*{minPrice}" />
+
+    <!-- Ввод максимальной цены -->
+    <label for="maxPrice">Максимальная цена:</label>
+    <input type="text" id="maxPrice" name="maxPrice" th:field="*{maxPrice}" />
+
+    <!-- Кнопка отправки формы -->
+    <button type="submit" class="btn btn-primary">Применить фильтр</button>
+  </form>
+</div>
+
+<!-- Отображение списка товаров -->
+<div class="container">
+  <h4>Список товаров</h4>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th class="text-center">Товар</th>
+      <th class="text-center">Категория</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate through the list of goods -->
+    <tr th:each="good : ${filteredGoods}">
+      <td class="text-center" th:text="${good.goodName}"></td>
+      <td class="text-center" th:text="${good.goodTypeName}"></td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
