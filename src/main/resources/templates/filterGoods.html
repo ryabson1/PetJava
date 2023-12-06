@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <!-- ... Ваши стили и мета-теги ... -->
+  <meta charset="UTF-8">
+  <title>Покупки</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <!-- Подключение Bootstrap -->
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous">
+
+  <!-- Подключение кастомной темы -->
+  <link rel="stylesheet" th:href="@{/css/custom-theme.css}"/>
 </head>
 <body>
 <div class="container">
-  <form th:action="@{/goods/filter}" method="post" th:object="${filterRequest}">
+  <form th:action="@{/goods/filter}" method="post" th:object="${filterRequest}" class="form-container mx-auto">
     <!-- Выбор категории -->
-    <label for="typeName">Категория:</label>
-    <select id="typeName" name="typeName" th:field="*{typeName}">
+    <div class="form-group col">
+    <label for="typeName">Категория товара:</label>
+    <select class="form-control" id="typeName" name="typeName" th:field="*{typeName}">
       <option value="" selected>Все категории</option>
       <option th:each="type : ${goodTypes}" th:value="${type.goodTypeName}" th:text="${type.goodTypeName}"></option>
     </select>
-
+    </div>
     <!-- Ввод минимальной цены -->
+    <div class="form-group col">
     <label for="minPrice">Минимальная цена:</label>
-    <input type="text" id="minPrice" name="minPrice" th:field="*{minPrice}" />
-
+    <input type="text" id="minPrice" name="minPrice" th:field="*{minPrice}" placeholder="Укажи минимальную стоимость" />
+    </div>
     <!-- Ввод максимальной цены -->
+    <div class="form-group col">
     <label for="maxPrice">Максимальная цена:</label>
-    <input type="text" id="maxPrice" name="maxPrice" th:field="*{maxPrice}" />
+    <input type="text" id="maxPrice" name="maxPrice" th:field="*{maxPrice}" placeholder="Укажи максимальную стоимость" />
+    </div>
 
     <!-- Кнопка отправки формы -->
     <button type="submit" class="btn btn-primary">Применить фильтр</button>
@@ -28,7 +42,9 @@
 
 <!-- Отображение списка товаров -->
 <div class="container">
+  <div class="text-center">
   <h4>Список товаров</h4>
+  </div>
   <table class="table table-bordered">
     <thead>
     <tr>
@@ -46,6 +62,12 @@
     </tr>
     </tbody>
   </table>
+
+  <div class="container">
+    <p><a class="registration-link" th:href="@{/mainForm}">Вернуться назад</a></p>
+    <p><a class="registration-link" th:href="@{/login}">Выйти из приложения</a></p>
+  </div>
+
 </div>
 </body>
 </html>
